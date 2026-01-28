@@ -6,27 +6,13 @@ import { MainNav } from "@/components/jkkn/MainNav";
 import { PartnersMarquee } from "@/components/jkkn/PartnersMarquee";
 import { SiteFooter } from "@/components/jkkn/SiteFooter";
 
-import campusImg from "@/assets/jkkn-campus.jpg";
-import founderImg from "@/assets/jkkn-founder.jpg";
+import placeholderImg from "/placeholder.svg";
+import { PLACEHOLDERS } from "@/content/placeholders";
 
-import instDental from "@/assets/jkkn/institution-dental.jpg";
-import instEngg from "@/assets/jkkn/institution-engg.jpg";
-import instPharmacy from "@/assets/jkkn/institution-pharmacy.jpg";
-import instAhs from "@/assets/jkkn/institution-ahs.jpg";
-import instCas from "@/assets/jkkn/institution-cas.jpg";
-import instEducation from "@/assets/jkkn/institution-education.jpg";
-import instSchool from "@/assets/jkkn/institution-school.jpg";
-
-import news1 from "@/assets/jkkn/news-1.png";
-import news2 from "@/assets/jkkn/news-2.jpg";
-import news3 from "@/assets/jkkn/news-3.jpeg";
-import buzz1 from "@/assets/jkkn/buzz-1.jpg";
-import buzz2 from "@/assets/jkkn/buzz-2.jpg";
-import buzz3 from "@/assets/jkkn/buzz-3.jpg";
 
 const Index = () => {
   useEffect(() => {
-    document.title = "Best College in Erode Region – JKKN Institutions";
+    document.title = PLACEHOLDERS.WEBSITE_NAME;
   }, []);
 
   return (
@@ -39,8 +25,8 @@ const Index = () => {
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src={campusImg}
-              alt="JKKN Campus"
+              src={placeholderImg}
+              alt={PLACEHOLDERS.EVENT_IMAGE_ALT_1}
               className="h-full w-full object-cover"
               loading="eager"
             />
@@ -51,21 +37,21 @@ const Index = () => {
             <div className="container pb-20 pt-16">
               <div className="max-w-3xl">
                 <div className="mb-4 inline-flex items-center rounded-full bg-secondary px-4 py-1 text-xs font-bold tracking-wide text-secondary-foreground">
-                  AI Empowered Campus
+                  {PLACEHOLDERS.TAGLINE}
                 </div>
                 <h1 className="text-4xl font-bold leading-tight tracking-tight text-primary-foreground md:text-5xl">
-                  India’s First AI-Integrated Campus
+                  {PLACEHOLDERS.HERO_TITLE}
                 </h1>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/90 md:text-lg">
-                  Neutral placeholder subtitle matching the hero’s single-paragraph structure.
+                  {PLACEHOLDERS.HERO_SUBTITLE}
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Button variant="secondary" size="lg">
-                    ONLINE ADMISSIONS 2026-27
+                    {PLACEHOLDERS.CTA_TEXT_1}
                   </Button>
                   <Button variant="outline" size="lg" className="bg-background/70">
-                    Explore Programs
+                    {PLACEHOLDERS.CTA_TEXT_2}
                   </Button>
                 </div>
               </div>
@@ -78,14 +64,19 @@ const Index = () => {
           <div className="container py-16">
             <div className="grid items-center gap-10 lg:grid-cols-2">
               <div className="overflow-hidden rounded-xl border">
-                <img src={founderImg} alt="Founder portrait" className="h-full w-full object-cover" loading="lazy" />
+                <img
+                  src={placeholderImg}
+                  alt={PLACEHOLDERS.EVENT_IMAGE_ALT_2}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <div>
                 <p className="text-sm font-semibold text-muted-foreground">JKKN100 - Celebrating a Century of Excellence</p>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">Kodai Vallal Shri. J.K.K. Nataraja Chettiar</h2>
                 <p className="mt-1 text-sm text-muted-foreground">1925–1995</p>
                 <p className="mt-5 leading-relaxed text-foreground/90">
-                  Neutral placeholder copy preserving the two-paragraph legacy narrative structure.
+                  {PLACEHOLDERS.SECTION_TEXT_CONTENT}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Button>Watch Tribute Video</Button>
@@ -104,7 +95,7 @@ const Index = () => {
                 <p className="text-sm font-semibold text-muted-foreground">Est. 1952</p>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">JKKN Institutions</h2>
                 <p className="mt-4 max-w-2xl leading-relaxed text-foreground/90">
-                  Neutral placeholder paragraph matching the about/journey content block.
+                  {PLACEHOLDERS.SECTION_TEXT_CONTENT}
                 </p>
               </div>
 
@@ -120,7 +111,7 @@ const Index = () => {
                   <Card key={label} className="bg-background">
                     <CardContent className="p-5">
                       <p className="text-sm font-semibold">{label}</p>
-                      <p className="mt-1 text-sm text-muted-foreground">Placeholder supporting line.</p>
+                        <p className="mt-1 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -161,38 +152,43 @@ const Index = () => {
               {[
                 {
                   name: "JKKN Dental College and Hospital",
-                  image: instDental,
+                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
                 },
                 {
                   name: "JKKN College of Engineering and Technology",
-                  image: instEngg,
+                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
                 },
                 {
                   name: "JKKN College of Pharmacy",
-                  image: instPharmacy,
+                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
                 },
                 {
                   name: "JKKN College of Allied Health Sciences",
-                  image: instAhs,
+                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
                 },
                 {
                   name: "JKKN College of Arts and Science",
-                  image: instCas,
+                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
                 },
                 {
                   name: "JKKN College of Education",
-                  image: instEducation,
+                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
                 },
                 {
                   name: "JKKN Matriculation Higher Secondary School",
-                  image: instSchool,
+                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
                 },
               ].slice(0, 6).map((item) => (
                 <Card key={item.name} className="overflow-hidden">
-                  <img src={item.image} alt={item.name} className="aspect-[16/10] w-full object-cover" loading="lazy" />
+                  <img
+                    src={placeholderImg}
+                    alt={item.imageAlt}
+                    className="aspect-[16/10] w-full object-cover"
+                    loading="lazy"
+                  />
                   <CardContent className="p-5">
                     <p className="text-base font-bold tracking-tight">{item.name}</p>
-                    <p className="mt-2 text-sm text-muted-foreground">Neutral placeholder description.</p>
+                    <p className="mt-2 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -213,22 +209,22 @@ const Index = () => {
                 </div>
                 <div className="grid gap-4">
                   {[
-                    { date: "Dec 15, 2025", img: news1, title: "Industry Connect – AI & Process Consulting" },
-                    { date: "Dec 2025", img: news2, title: "Campus Recruitment Drive" },
-                    { date: "Dec 2025", img: news3, title: "LinkedIn Live Webinar" },
+                    { date: "Dec 15, 2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1, title: PLACEHOLDERS.EVENT_TITLE_1 },
+                    { date: "Dec 2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_2, title: PLACEHOLDERS.EVENT_TITLE_2 },
+                    { date: "Dec 2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_3, title: PLACEHOLDERS.EVENT_TITLE_3 },
                   ].map((n) => (
                     <Card key={n.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
                         <img
-                          src={n.img}
-                          alt={n.title}
+                          src={placeholderImg}
+                          alt={n.imgAlt}
                           className="h-20 w-28 shrink-0 rounded-md object-cover"
                           loading="lazy"
                         />
                         <div>
                           <p className="text-xs font-semibold text-muted-foreground">{n.date}</p>
                           <p className="mt-1 font-semibold">{n.title}</p>
-                          <p className="mt-1 text-sm text-muted-foreground">Short summary placeholder.</p>
+                          <p className="mt-1 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -245,22 +241,22 @@ const Index = () => {
                 </div>
                 <div className="grid gap-4">
                   {[
-                    { date: "2025", img: buzz1, title: "Pot Painting Event" },
-                    { date: "2025", img: buzz2, title: "Kumarapalayam Marathon" },
-                    { date: "2025", img: buzz3, title: "Pongal Celebrations" },
+                    { date: "2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1, title: PLACEHOLDERS.EVENT_TITLE_1 },
+                    { date: "2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_2, title: PLACEHOLDERS.EVENT_TITLE_2 },
+                    { date: "2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_3, title: PLACEHOLDERS.EVENT_TITLE_3 },
                   ].map((b) => (
                     <Card key={b.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
                         <img
-                          src={b.img}
-                          alt={b.title}
+                          src={placeholderImg}
+                          alt={b.imgAlt}
                           className="h-20 w-28 shrink-0 rounded-md object-cover"
                           loading="lazy"
                         />
                         <div>
                           <p className="text-xs font-semibold text-muted-foreground">{b.date}</p>
                           <p className="mt-1 font-semibold">{b.title}</p>
-                          <p className="mt-1 text-sm text-muted-foreground">Short summary placeholder.</p>
+                          <p className="mt-1 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
                         </div>
                       </CardContent>
                     </Card>

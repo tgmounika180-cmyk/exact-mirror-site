@@ -11,7 +11,8 @@ import {
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import jkknLogo from "@/assets/jkkn-logo.svg";
+import placeholderImg from "/placeholder.svg";
+import { PLACEHOLDERS } from "@/content/placeholders";
 
 const menuLinkClass =
   "text-sm font-semibold tracking-tight text-foreground/90 hover:text-foreground px-2 py-2";
@@ -29,16 +30,16 @@ export function MainNav() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="container flex h-20 items-center justify-between gap-6">
         <a href="/" className="flex items-center gap-3">
-          <img src={jkknLogo} alt="JKKN Institutions" className="h-10 w-auto" />
+          <img src={placeholderImg} alt={PLACEHOLDERS.LOGO_IMAGE_ALT} className="h-10 w-auto" />
         </a>
 
         <nav className="hidden items-center gap-2 lg:flex">
-          <MenuLink href="#">Home</MenuLink>
-          <MenuLink href="#">About</MenuLink>
-          <MenuLink href="#">Our Colleges</MenuLink>
-          <MenuLink href="#">Our Schools</MenuLink>
-          <MenuLink href="#">Courses Offered</MenuLink>
-          <MenuLink href="#">Facilities</MenuLink>
+          <MenuLink href="#">{PLACEHOLDERS.NAV_MENU_LABELS}</MenuLink>
+          <MenuLink href="#">{PLACEHOLDERS.NAV_MENU_LABELS}</MenuLink>
+          <MenuLink href="#">{PLACEHOLDERS.NAV_MENU_LABELS}</MenuLink>
+          <MenuLink href="#">{PLACEHOLDERS.NAV_MENU_LABELS}</MenuLink>
+          <MenuLink href="#">{PLACEHOLDERS.NAV_MENU_LABELS}</MenuLink>
+          <MenuLink href="#">{PLACEHOLDERS.NAV_MENU_LABELS}</MenuLink>
 
           <NavigationMenu>
             <NavigationMenuList>
@@ -50,17 +51,17 @@ export function MainNav() {
                   <div className="grid w-[260px] gap-2">
                     <NavigationMenuLink asChild>
                       <a className="rounded-md px-3 py-2 text-sm hover:bg-accent" href="#">
-                        News & Events
+                        {PLACEHOLDERS.NAV_MENU_LABELS}
                       </a>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
                       <a className="rounded-md px-3 py-2 text-sm hover:bg-accent" href="#">
-                        Careers
+                        {PLACEHOLDERS.NAV_MENU_LABELS}
                       </a>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
                       <a className="rounded-md px-3 py-2 text-sm hover:bg-accent" href="#">
-                        Gallery
+                        {PLACEHOLDERS.NAV_MENU_LABELS}
                       </a>
                     </NavigationMenuLink>
                   </div>
@@ -69,12 +70,12 @@ export function MainNav() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <MenuLink href="#">Contact</MenuLink>
+          <MenuLink href="#">{PLACEHOLDERS.NAV_MENU_LABELS}</MenuLink>
         </nav>
 
         <div className="flex items-center gap-3">
           <Button variant="secondary" className="hidden lg:inline-flex">
-            ONLINE ADMISSIONS 2026-27
+            {PLACEHOLDERS.CTA_TEXT_1}
           </Button>
 
           <div className="lg:hidden">
@@ -91,14 +92,14 @@ export function MainNav() {
 
                 <div className="mt-6 grid gap-2">
                   {[
-                    "Home",
-                    "About",
-                    "Our Colleges",
-                    "Our Schools",
-                    "Courses Offered",
-                    "Facilities",
-                    "More",
-                    "Contact",
+                    PLACEHOLDERS.NAV_MENU_LABELS,
+                    PLACEHOLDERS.NAV_MENU_LABELS,
+                    PLACEHOLDERS.NAV_MENU_LABELS,
+                    PLACEHOLDERS.NAV_MENU_LABELS,
+                    PLACEHOLDERS.NAV_MENU_LABELS,
+                    PLACEHOLDERS.NAV_MENU_LABELS,
+                    PLACEHOLDERS.NAV_MENU_LABELS,
+                    PLACEHOLDERS.NAV_MENU_LABELS,
                   ].map((label) => (
                     <a key={label} className="rounded-md px-3 py-2 text-sm font-semibold hover:bg-accent" href="#">
                       {label}
@@ -106,7 +107,7 @@ export function MainNav() {
                   ))}
                   <div className="pt-2">
                     <Button variant="secondary" className="w-full">
-                      ONLINE ADMISSIONS 2026-27
+                      {PLACEHOLDERS.CTA_TEXT_1}
                     </Button>
                   </div>
                 </div>

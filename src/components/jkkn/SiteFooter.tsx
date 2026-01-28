@@ -1,4 +1,5 @@
-import jkknLogo from "@/assets/jkkn-logo.svg";
+import placeholderImg from "/placeholder.svg";
+import { PLACEHOLDERS } from "@/content/placeholders";
 
 export function SiteFooter() {
   return (
@@ -6,9 +7,9 @@ export function SiteFooter() {
       <div className="container py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <img src={jkknLogo} alt="JKKN Institutions" className="mb-4 h-10 w-auto" />
+            <img src={placeholderImg} alt={PLACEHOLDERS.LOGO_IMAGE_ALT} className="mb-4 h-10 w-auto" />
             <p className="text-sm opacity-90">
-              Placeholder description matching the footer’s informational block.
+              {PLACEHOLDERS.SECTION_TEXT_CONTENT}
             </p>
           </div>
 
@@ -41,15 +42,15 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-4 text-sm font-bold tracking-wide">Contact</h3>
             <ul className="space-y-2 text-sm opacity-90">
-              <li>JKKN Campus, Placeholder Address</li>
+              <li>{PLACEHOLDERS.ADDRESS}</li>
               <li>
-                <a className="hover:underline" href="tel:+919345855001">
-                  +91 93458 55001
+                <a className="hover:underline" href="#">
+                  {PLACEHOLDERS.CONTACT_PHONE}
                 </a>
               </li>
               <li>
-                <a className="hover:underline" href="mailto:info@jkkn.ac.in">
-                  info@jkkn.ac.in
+                <a className="hover:underline" href="#">
+                  {PLACEHOLDERS.CONTACT_EMAIL}
                 </a>
               </li>
             </ul>
