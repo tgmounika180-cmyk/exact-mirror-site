@@ -13,6 +13,7 @@ import {
   fetchHomepageInstitutions,
   fetchHomepagePartners,
   fetchHomepagePosts,
+  fetchSiteSettings,
 } from "@/lib/jkkn/content";
 
 const Index = () => {
@@ -25,6 +26,7 @@ const Index = () => {
   const newsQ = useQuery({ queryKey: ["homepage", "posts", "news"], queryFn: () => fetchHomepagePosts("news") });
   const buzzQ = useQuery({ queryKey: ["homepage", "posts", "buzz"], queryFn: () => fetchHomepagePosts("buzz") });
   const partnersQ = useQuery({ queryKey: ["homepage", "partners"], queryFn: fetchHomepagePartners });
+  const siteSettingsQ = useQuery({ queryKey: ["site", "settings"], queryFn: fetchSiteSettings });
 
   const hero = heroQ.data;
 
@@ -103,7 +105,7 @@ const Index = () => {
                 <p className="text-sm font-semibold text-muted-foreground">Est. 1952</p>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">JKKN Institutions</h2>
                 <p className="mt-4 max-w-2xl leading-relaxed text-foreground/90">
-                  Neutral placeholder paragraph matching the about/journey content block.
+                  {siteSettingsQ.data?.about_text || "Neutral placeholder paragraph matching the about/journey content block."}
                 </p>
               </div>
 

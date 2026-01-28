@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { z } from "zod";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
@@ -17,10 +18,14 @@ import {
   fetchHomepageInstitutions,
   fetchHomepagePartners,
   fetchHomepagePosts,
+  fetchSiteFooterLinks,
+  fetchSiteNavLabels,
+  fetchSiteSettings,
   type HomepageHeroRow,
   type HomepageInstitutionRow,
   type HomepagePartnerRow,
   type HomepagePostRow,
+  type SiteSettingsRow,
 } from "@/lib/jkkn/content";
 
 import { JKKN_ASSETS, type JkknAssetKey } from "@/lib/jkkn/assets";
@@ -63,12 +68,58 @@ export default function Admin() {
   const buzzQ = useQuery({ queryKey: ["homepage", "posts", "buzz"], queryFn: () => fetchHomepagePosts("buzz") });
   const partnersQ = useQuery({ queryKey: ["homepage", "partners"], queryFn: fetchHomepagePartners });
 
+  const siteSettingsQ = useQuery({ queryKey: ["site", "settings"], queryFn: fetchSiteSettings });
+  const navLabelsQ = useQuery({ queryKey: ["site", "nav-labels"], queryFn: fetchSiteNavLabels });
+  const footerLinksQ = useQuery({ queryKey: ["site", "footer-links"], queryFn: fetchSiteFooterLinks });
+
   const [heroDraft, setHeroDraft] = useState<HomepageHeroRow | null>(null);
+  const [siteDraft, setSiteDraft] = useState<SiteSettingsRow | null>(null);
+  const [navDraft, setNavDraft] = useState<Record<string, string>>({});
+  const [footerLinksDraft, setFooterLinksDraft] = useState<Record<string, string>>({});
 
   useMemo(() => {
     if (!heroDraft && heroQ.data) setHeroDraft(heroQ.data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [heroQ.data]);
+
+  useMemo(() => {
+    if (!siteDraft && siteSettingsQ.data) setSiteDraft(siteSettingsQ.data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [siteSettingsQ.data]);
+
+  useMemo(() => {
+    if ((navLabelsQ.data ?? []).length && Object.keys(navDraft).length === 0) {
+      setNavDraft((navLabelsQ.data ?? []).reduce<Record<string, string>>((acc, row) => {
+        acc[row.key] = row.label;
+        return acc;
+      }, {}));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navLabelsQ.data]);
+
+  useMemo(() => {
+    if ((footerLinksQ.data ?? []).length && Object.keys(footerLinksDraft).length === 0) {
+      setFooterLinksDraft((footerLinksQ.data ?? []).reduce<Record<string, string>>((acc, row) => {
+        acc[row.key] = row.label;
+        return acc;
+      }, {}));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [footerLinksQ.data]);
+
+  const siteSettingsSchema = useMemo(
+    () =>
+      z.object({
+        topbar_phone: z.string().trim().min(3).max(50),
+        topbar_email: z.string().trim().email().max(255),
+        contact_address: z.string().trim().min(3).max(500),
+        contact_phone: z.string().trim().min(3).max(50),
+        contact_email: z.string().trim().email().max(255),
+        footer_description: z.string().trim().min(1).max(800),
+        about_text: z.string().trim().min(1).max(2000),
+      }),
+    [],
+  );
 
   async function saveHero() {
     if (!heroDraft) return;
@@ -92,6 +143,32 @@ export default function Admin() {
       toast({ title: "Saved", description: "Hero updated." });
     } catch (e) {
       toast({ title: "Error", description: e instanceof Error ? e.message : "Failed to save" , variant: "destructive" });
+    }
+  }
+
+  async function saveSiteSettings() {
+    if (!siteDraft) return;
+    try {
+      const parsed = siteSettingsSchema.parse({
+        topbar_phone: siteDraft.topbar_phone,
+        topbar_email: siteDraft.topbar_email,
+        contact_address: siteDraft.contact_address,
+        contact_phone: siteDraft.contact_phone,
+        contact_email: siteDraft.contact_email,
+        footer_description: siteDraft.footer_description,
+        about_text: siteDraft.about_text,
+      });
+
+      await supabase
+        .from("site_settings")
+        .update(parsed)
+        .eq("id", siteDraft.id)
+        .throwOnError();
+
+      await qc.invalidateQueries({ queryKey: ["site", "settings"] });
+      toast({ title: "Saved", description: "Site settings updated." });
+    } catch (e) {
+      toast({ title: "Error", description: e instanceof Error ? e.message : "Failed to save", variant: "destructive" });
     }
   }
 
@@ -133,6 +210,18 @@ export default function Admin() {
   async function savePartner(row: HomepagePartnerRow) {
     await supabase.from("homepage_partners").update({ name: row.name, image_key: row.image_key, sort_order: row.sort_order }).eq("id", row.id).throwOnError();
     await qc.invalidateQueries({ queryKey: ["homepage", "partners"] });
+  }
+
+  async function saveNavLabel(key: string) {
+    await supabase.from("site_nav_labels").update({ label: navDraft[key] ?? "" }).eq("key", key).throwOnError();
+    await qc.invalidateQueries({ queryKey: ["site", "nav-labels"] });
+    // These appear in header across pages
+    await qc.invalidateQueries({ queryKey: ["site", "settings"] });
+  }
+
+  async function saveFooterLink(key: string) {
+    await supabase.from("site_footer_links").update({ label: footerLinksDraft[key] ?? "" }).eq("key", key).throwOnError();
+    await qc.invalidateQueries({ queryKey: ["site", "footer-links"] });
   }
 
   return (
@@ -181,6 +270,7 @@ export default function Admin() {
           <Tabs defaultValue="hero">
             <TabsList>
               <TabsTrigger value="hero">Hero</TabsTrigger>
+              <TabsTrigger value="site">Site</TabsTrigger>
               <TabsTrigger value="institutions">Institutions</TabsTrigger>
               <TabsTrigger value="news">News</TabsTrigger>
               <TabsTrigger value="buzz">Buzz</TabsTrigger>
@@ -235,6 +325,123 @@ export default function Admin() {
                   )}
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="site" className="mt-4">
+              <div className="grid gap-4">
+                <Card>
+                  <CardContent className="p-6">
+                    <h2 className="text-base font-bold">Top bar + Contact + Footer + About</h2>
+                    {!siteDraft ? (
+                      <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
+                    ) : (
+                      <div className="mt-4 grid gap-4">
+                        <div className="grid gap-4 md:grid-cols-2">
+                          <div className="grid gap-2">
+                            <Label>Top bar phone</Label>
+                            <Input value={siteDraft.topbar_phone} onChange={(e) => setSiteDraft({ ...siteDraft, topbar_phone: e.target.value })} />
+                          </div>
+                          <div className="grid gap-2">
+                            <Label>Top bar email</Label>
+                            <Input value={siteDraft.topbar_email} onChange={(e) => setSiteDraft({ ...siteDraft, topbar_email: e.target.value })} />
+                          </div>
+                        </div>
+
+                        <div className="grid gap-2">
+                          <Label>About section text</Label>
+                          <Input value={siteDraft.about_text} onChange={(e) => setSiteDraft({ ...siteDraft, about_text: e.target.value })} />
+                        </div>
+
+                        <div className="grid gap-4 md:grid-cols-2">
+                          <div className="grid gap-2">
+                            <Label>Contact phone (footer)</Label>
+                            <Input value={siteDraft.contact_phone} onChange={(e) => setSiteDraft({ ...siteDraft, contact_phone: e.target.value })} />
+                          </div>
+                          <div className="grid gap-2">
+                            <Label>Contact email (footer)</Label>
+                            <Input value={siteDraft.contact_email} onChange={(e) => setSiteDraft({ ...siteDraft, contact_email: e.target.value })} />
+                          </div>
+                        </div>
+
+                        <div className="grid gap-2">
+                          <Label>Address (footer)</Label>
+                          <Input value={siteDraft.contact_address} onChange={(e) => setSiteDraft({ ...siteDraft, contact_address: e.target.value })} />
+                        </div>
+
+                        <div className="grid gap-2">
+                          <Label>Footer description</Label>
+                          <Input value={siteDraft.footer_description} onChange={(e) => setSiteDraft({ ...siteDraft, footer_description: e.target.value })} />
+                        </div>
+
+                        <div className="pt-2">
+                          <Button onClick={saveSiteSettings}>Save site settings</Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <h2 className="text-base font-bold">Navigation menu labels (text only)</h2>
+                    <p className="mt-1 text-sm text-muted-foreground">Links remain unchanged; only label text is editable.</p>
+                    <div className="mt-4 grid gap-3">
+                      {(navLabelsQ.data ?? []).map((row) => (
+                        <div key={row.key} className="grid gap-2 md:grid-cols-[220px_1fr_120px] md:items-end">
+                          <div className="text-sm font-semibold">{row.key}</div>
+                          <div className="grid gap-2">
+                            <Label className="sr-only">Label</Label>
+                            <Input
+                              value={navDraft[row.key] ?? row.label}
+                              onChange={(e) => setNavDraft((prev) => ({ ...prev, [row.key]: e.target.value }))}
+                            />
+                          </div>
+                          <Button
+                            variant="outline"
+                            onClick={() =>
+                              saveNavLabel(row.key)
+                                .then(() => toast({ title: "Saved" }))
+                                .catch((e) => toast({ title: "Error", description: e.message, variant: "destructive" }))
+                            }
+                          >
+                            Save
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <h2 className="text-base font-bold">Footer quick links labels (text only)</h2>
+                    <div className="mt-4 grid gap-3">
+                      {(footerLinksQ.data ?? []).map((row) => (
+                        <div key={row.key} className="grid gap-2 md:grid-cols-[220px_1fr_120px] md:items-end">
+                          <div className="text-sm font-semibold">{row.key}</div>
+                          <div className="grid gap-2">
+                            <Label className="sr-only">Label</Label>
+                            <Input
+                              value={footerLinksDraft[row.key] ?? row.label}
+                              onChange={(e) => setFooterLinksDraft((prev) => ({ ...prev, [row.key]: e.target.value }))}
+                            />
+                          </div>
+                          <Button
+                            variant="outline"
+                            onClick={() =>
+                              saveFooterLink(row.key)
+                                .then(() => toast({ title: "Saved" }))
+                                .catch((e) => toast({ title: "Error", description: e.message, variant: "destructive" }))
+                            }
+                          >
+                            Save
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             <TabsContent value="institutions" className="mt-4">

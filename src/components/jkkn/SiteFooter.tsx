@@ -1,6 +1,24 @@
 import jkknLogo from "@/assets/jkkn-logo.svg";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteFooterLinks, fetchSiteSettings } from "@/lib/jkkn/content";
 
 export function SiteFooter() {
+  const settingsQ = useQuery({ queryKey: ["site", "settings"], queryFn: fetchSiteSettings });
+  const linksQ = useQuery({ queryKey: ["site", "footer-links"], queryFn: fetchSiteFooterLinks });
+
+  const settings = settingsQ.data;
+  const footerDescription = settings?.footer_description || "Placeholder description matching the footer’s informational block.";
+  const address = settings?.contact_address || "JKKN Campus, Placeholder Address";
+  const phone = settings?.contact_phone || "+91 93458 55001";
+  const email = settings?.contact_email || "info@jkkn.ac.in";
+  const phoneHref = `tel:${phone.replace(/\s+/g, "")}`;
+  const emailHref = `mailto:${email}`;
+
+  const footerLinks = (linksQ.data ?? []).reduce<Record<string, string>>((acc, row) => {
+    acc[row.key] = row.label;
+    return acc;
+  }, {});
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container py-14">
@@ -8,7 +26,7 @@ export function SiteFooter() {
           <div>
             <img src={jkknLogo} alt="JKKN Institutions" className="mb-4 h-10 w-auto" />
             <p className="text-sm opacity-90">
-              Placeholder description matching the footer’s informational block.
+              {footerDescription}
             </p>
           </div>
 
@@ -17,22 +35,22 @@ export function SiteFooter() {
             <ul className="space-y-2 text-sm opacity-90">
               <li>
                 <a className="hover:underline" href="#">
-                  About
+                  {footerLinks.about || "About"}
                 </a>
               </li>
               <li>
                 <a className="hover:underline" href="#">
-                  Our Colleges
+                  {footerLinks.our_colleges || "Our Colleges"}
                 </a>
               </li>
               <li>
                 <a className="hover:underline" href="#">
-                  Admissions
+                  {footerLinks.admissions || "Admissions"}
                 </a>
               </li>
               <li>
                 <a className="hover:underline" href="#">
-                  Contact
+                  {footerLinks.contact || "Contact"}
                 </a>
               </li>
             </ul>
@@ -41,15 +59,15 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-4 text-sm font-bold tracking-wide">Contact</h3>
             <ul className="space-y-2 text-sm opacity-90">
-              <li>JKKN Campus, Placeholder Address</li>
+              <li>{address}</li>
               <li>
-                <a className="hover:underline" href="tel:+919345855001">
-                  +91 93458 55001
+                <a className="hover:underline" href={phoneHref}>
+                  {phone}
                 </a>
               </li>
               <li>
-                <a className="hover:underline" href="mailto:info@jkkn.ac.in">
-                  info@jkkn.ac.in
+                <a className="hover:underline" href={emailHref}>
+                  {email}
                 </a>
               </li>
             </ul>
