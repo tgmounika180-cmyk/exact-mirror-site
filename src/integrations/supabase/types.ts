@@ -179,6 +179,87 @@ export type Database = {
         }
         Relationships: []
       }
+      site_footer_links: {
+        Row: {
+          created_at: string
+          key: string
+          label: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          key: string
+          label?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          key?: string
+          label?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_nav_labels: {
+        Row: {
+          created_at: string
+          key: string
+          label: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          key: string
+          label?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          key?: string
+          label?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          about_text: string
+          contact_address: string
+          contact_email: string
+          contact_phone: string
+          created_at: string
+          footer_description: string
+          id: string
+          topbar_email: string
+          topbar_phone: string
+          updated_at: string
+        }
+        Insert: {
+          about_text?: string
+          contact_address?: string
+          contact_email?: string
+          contact_phone?: string
+          created_at?: string
+          footer_description?: string
+          id?: string
+          topbar_email?: string
+          topbar_phone?: string
+          updated_at?: string
+        }
+        Update: {
+          about_text?: string
+          contact_address?: string
+          contact_email?: string
+          contact_phone?: string
+          created_at?: string
+          footer_description?: string
+          id?: string
+          topbar_email?: string
+          topbar_phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

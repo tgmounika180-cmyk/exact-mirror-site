@@ -1,15 +1,25 @@
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+
+import { fetchSiteSettings } from "@/lib/jkkn/content";
 
 export function TopBar() {
+  const settingsQ = useQuery({ queryKey: ["site", "settings"], queryFn: fetchSiteSettings });
+  const phone = settingsQ.data?.topbar_phone || "+91 93458 55001";
+  const email = settingsQ.data?.topbar_email || "info@jkkn.ac.in";
+
+  const phoneHref = `tel:${phone.replace(/\s+/g, "")}`;
+  const emailHref = `mailto:${email}`;
+
   return (
     <div className="w-full bg-primary text-primary-foreground">
       <div className="container flex h-10 items-center justify-between text-sm">
         <div className="flex items-center gap-4">
-          <a className="hover:underline" href="tel:+919345855001">
-            +91 93458 55001
+          <a className="hover:underline" href={phoneHref}>
+            {phone}
           </a>
-          <a className="hover:underline" href="mailto:info@jkkn.ac.in">
-            info@jkkn.ac.in
+          <a className="hover:underline" href={emailHref}>
+            {email}
           </a>
         </div>
 

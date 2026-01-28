@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Menu } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import jkknLogo from "@/assets/jkkn-logo.svg";
+import { fetchSiteNavLabels } from "@/lib/jkkn/content";
 
 const menuLinkClass =
   "text-sm font-semibold tracking-tight text-foreground/90 hover:text-foreground px-2 py-2";
@@ -25,6 +27,14 @@ function MenuLink({ href, children }: { href: string; children: ReactNode }) {
 }
 
 export function MainNav() {
+  const navQ = useQuery({ queryKey: ["site", "nav-labels"], queryFn: fetchSiteNavLabels });
+  const labels = (navQ.data ?? []).reduce<Record<string, string>>((acc, row) => {
+    acc[row.key] = row.label;
+    return acc;
+  }, {});
+
+  const L = (key: string, fallback: string) => labels[key] || fallback;
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="container flex h-20 items-center justify-between gap-6">
@@ -33,34 +43,34 @@ export function MainNav() {
         </a>
 
         <nav className="hidden items-center gap-2 lg:flex">
-          <MenuLink href="#">Home</MenuLink>
-          <MenuLink href="#">About</MenuLink>
-          <MenuLink href="#">Our Colleges</MenuLink>
-          <MenuLink href="#">Our Schools</MenuLink>
-          <MenuLink href="#">Courses Offered</MenuLink>
-          <MenuLink href="#">Facilities</MenuLink>
+          <MenuLink href="#">{L("home", "Home")}</MenuLink>
+          <MenuLink href="#">{L("about", "About")}</MenuLink>
+          <MenuLink href="#">{L("our_colleges", "Our Colleges")}</MenuLink>
+          <MenuLink href="#">{L("our_schools", "Our Schools")}</MenuLink>
+          <MenuLink href="#">{L("courses_offered", "Courses Offered")}</MenuLink>
+          <MenuLink href="#">{L("facilities", "Facilities")}</MenuLink>
 
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-sm font-semibold tracking-tight text-foreground/90 hover:bg-accent hover:text-accent-foreground">
-                  More
+                  {L("more", "More")}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="rounded-md border bg-popover p-3 text-popover-foreground shadow-lg">
                   <div className="grid w-[260px] gap-2">
                     <NavigationMenuLink asChild>
                       <a className="rounded-md px-3 py-2 text-sm hover:bg-accent" href="#">
-                        News & Events
+                        {L("more_news_events", "News & Events")}
                       </a>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
                       <a className="rounded-md px-3 py-2 text-sm hover:bg-accent" href="#">
-                        Careers
+                        {L("more_careers", "Careers")}
                       </a>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
                       <a className="rounded-md px-3 py-2 text-sm hover:bg-accent" href="#">
-                        Gallery
+                        {L("more_gallery", "Gallery")}
                       </a>
                     </NavigationMenuLink>
                   </div>
@@ -69,12 +79,12 @@ export function MainNav() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <MenuLink href="#">Contact</MenuLink>
+          <MenuLink href="#">{L("contact", "Contact")}</MenuLink>
         </nav>
 
         <div className="flex items-center gap-3">
           <Button variant="secondary" className="hidden lg:inline-flex">
-            ONLINE ADMISSIONS 2026-27
+            {L("admissions_cta", "ONLINE ADMISSIONS 2026-27")}
           </Button>
 
           <div className="lg:hidden">
@@ -91,22 +101,22 @@ export function MainNav() {
 
                 <div className="mt-6 grid gap-2">
                   {[
-                    "Home",
-                    "About",
-                    "Our Colleges",
-                    "Our Schools",
-                    "Courses Offered",
-                    "Facilities",
-                    "More",
-                    "Contact",
-                  ].map((label) => (
-                    <a key={label} className="rounded-md px-3 py-2 text-sm font-semibold hover:bg-accent" href="#">
-                      {label}
+                    { key: "home", fallback: "Home" },
+                    { key: "about", fallback: "About" },
+                    { key: "our_colleges", fallback: "Our Colleges" },
+                    { key: "our_schools", fallback: "Our Schools" },
+                    { key: "courses_offered", fallback: "Courses Offered" },
+                    { key: "facilities", fallback: "Facilities" },
+                    { key: "more", fallback: "More" },
+                    { key: "contact", fallback: "Contact" },
+                  ].map(({ key, fallback }) => (
+                    <a key={key} className="rounded-md px-3 py-2 text-sm font-semibold hover:bg-accent" href="#">
+                      {L(key, fallback)}
                     </a>
                   ))}
                   <div className="pt-2">
                     <Button variant="secondary" className="w-full">
-                      ONLINE ADMISSIONS 2026-27
+                      {L("admissions_cta", "ONLINE ADMISSIONS 2026-27")}
                     </Button>
                   </div>
                 </div>

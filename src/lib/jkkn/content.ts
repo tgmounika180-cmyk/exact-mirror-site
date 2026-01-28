@@ -6,6 +6,10 @@ export type HomepageInstitutionRow = Database["public"]["Tables"]["homepage_inst
 export type HomepagePostRow = Database["public"]["Tables"]["homepage_posts"]["Row"];
 export type HomepagePartnerRow = Database["public"]["Tables"]["homepage_partners"]["Row"];
 
+export type SiteSettingsRow = Database["public"]["Tables"]["site_settings"]["Row"];
+export type SiteNavLabelRow = Database["public"]["Tables"]["site_nav_labels"]["Row"];
+export type SiteFooterLinkRow = Database["public"]["Tables"]["site_footer_links"]["Row"];
+
 export async function fetchHomepageHero() {
   const { data, error } = await supabase.from("homepage_hero").select("*").order("created_at", { ascending: true }).limit(1);
   if (error) throw error;
@@ -36,6 +40,24 @@ export async function fetchHomepagePartners() {
     .from("homepage_partners")
     .select("*")
     .order("sort_order", { ascending: true });
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function fetchSiteSettings() {
+  const { data, error } = await supabase.from("site_settings").select("*").order("created_at", { ascending: true }).limit(1);
+  if (error) throw error;
+  return data?.[0] ?? null;
+}
+
+export async function fetchSiteNavLabels() {
+  const { data, error } = await supabase.from("site_nav_labels").select("*");
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function fetchSiteFooterLinks() {
+  const { data, error } = await supabase.from("site_footer_links").select("*");
   if (error) throw error;
   return data ?? [];
 }
