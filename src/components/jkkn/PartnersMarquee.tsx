@@ -1,12 +1,23 @@
 import type { ReactNode } from "react";
 
+import recruiterTcs from "@/assets/jkkn/recruiter-tcs.png";
+import recruiterInfosys from "@/assets/jkkn/recruiter-infosys.png";
+import recruiterWipro from "@/assets/jkkn/recruiter-wipro.jpg";
+import recruiterCognizant from "@/assets/jkkn/recruiter-cognizant.jpg";
+import recruiterHcl from "@/assets/jkkn/recruiter-hcl.png";
+
 function MarqueeTrack({ children }: { children: ReactNode }) {
   return <div className="flex min-w-full items-center gap-10 px-6">{children}</div>;
 }
 
 export function PartnersMarquee() {
-  // Neutral placeholders to preserve the structure.
-  const logos = Array.from({ length: 10 }).map((_, i) => ({ id: i, label: `Partner ${i + 1}` }));
+  const logos = [
+    { id: "tcs", src: recruiterTcs, alt: "TCS" },
+    { id: "infosys", src: recruiterInfosys, alt: "Infosys" },
+    { id: "wipro", src: recruiterWipro, alt: "Wipro" },
+    { id: "cognizant", src: recruiterCognizant, alt: "Cognizant" },
+    { id: "hcl", src: recruiterHcl, alt: "HCL" },
+  ];
 
   return (
     <section className="bg-muted">
@@ -20,21 +31,15 @@ export function PartnersMarquee() {
           <div className="flex w-[200%] animate-marquee">
             <MarqueeTrack>
               {logos.map((l) => (
-                <div
-                  key={l.id}
-                  className="flex h-16 w-40 items-center justify-center rounded-md border bg-card text-sm font-semibold text-card-foreground"
-                >
-                  {l.label}
+                <div key={l.id} className="flex h-16 w-40 items-center justify-center rounded-md border bg-card">
+                  <img src={l.src} alt={l.alt} className="h-10 w-auto object-contain" loading="lazy" />
                 </div>
               ))}
             </MarqueeTrack>
             <MarqueeTrack>
               {logos.map((l) => (
-                <div
-                  key={`dup-${l.id}`}
-                  className="flex h-16 w-40 items-center justify-center rounded-md border bg-card text-sm font-semibold text-card-foreground"
-                >
-                  {l.label}
+                <div key={`dup-${l.id}`} className="flex h-16 w-40 items-center justify-center rounded-md border bg-card">
+                  <img src={l.src} alt={l.alt} className="h-10 w-auto object-contain" loading="lazy" />
                 </div>
               ))}
             </MarqueeTrack>
