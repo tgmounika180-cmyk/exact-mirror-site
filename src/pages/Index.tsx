@@ -9,6 +9,21 @@ import { SiteFooter } from "@/components/jkkn/SiteFooter";
 import campusImg from "@/assets/jkkn-campus.jpg";
 import founderImg from "@/assets/jkkn-founder.jpg";
 
+import instDental from "@/assets/jkkn/institution-dental.jpg";
+import instEngg from "@/assets/jkkn/institution-engg.jpg";
+import instPharmacy from "@/assets/jkkn/institution-pharmacy.jpg";
+import instAhs from "@/assets/jkkn/institution-ahs.jpg";
+import instCas from "@/assets/jkkn/institution-cas.jpg";
+import instEducation from "@/assets/jkkn/institution-education.jpg";
+import instSchool from "@/assets/jkkn/institution-school.jpg";
+
+import news1 from "@/assets/jkkn/news-1.png";
+import news2 from "@/assets/jkkn/news-2.jpg";
+import news3 from "@/assets/jkkn/news-3.jpeg";
+import buzz1 from "@/assets/jkkn/buzz-1.jpg";
+import buzz2 from "@/assets/jkkn/buzz-2.jpg";
+import buzz3 from "@/assets/jkkn/buzz-3.jpg";
+
 const Index = () => {
   useEffect(() => {
     document.title = "Best College in Erode Region – JKKN Institutions";
@@ -144,17 +159,39 @@ const Index = () => {
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[
-                "Dental College",
-                "Engineering College",
-                "Pharmacy College",
-                "Nursing College",
-                "Arts & Science College",
-                "School of Excellence",
-              ].map((name) => (
-                <Card key={name} className="overflow-hidden">
-                  <div className="aspect-[16/10] w-full bg-muted" />
+                {
+                  name: "JKKN Dental College and Hospital",
+                  image: instDental,
+                },
+                {
+                  name: "JKKN College of Engineering and Technology",
+                  image: instEngg,
+                },
+                {
+                  name: "JKKN College of Pharmacy",
+                  image: instPharmacy,
+                },
+                {
+                  name: "JKKN College of Allied Health Sciences",
+                  image: instAhs,
+                },
+                {
+                  name: "JKKN College of Arts and Science",
+                  image: instCas,
+                },
+                {
+                  name: "JKKN College of Education",
+                  image: instEducation,
+                },
+                {
+                  name: "JKKN Matriculation Higher Secondary School",
+                  image: instSchool,
+                },
+              ].slice(0, 6).map((item) => (
+                <Card key={item.name} className="overflow-hidden">
+                  <img src={item.image} alt={item.name} className="aspect-[16/10] w-full object-cover" loading="lazy" />
                   <CardContent className="p-5">
-                    <p className="text-base font-bold tracking-tight">{name}</p>
+                    <p className="text-base font-bold tracking-tight">{item.name}</p>
                     <p className="mt-2 text-sm text-muted-foreground">Neutral placeholder description.</p>
                   </CardContent>
                 </Card>
@@ -175,13 +212,22 @@ const Index = () => {
                   </a>
                 </div>
                 <div className="grid gap-4">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <Card key={`news-${i}`} className="bg-background">
+                  {[
+                    { date: "Dec 15, 2025", img: news1, title: "Industry Connect – AI & Process Consulting" },
+                    { date: "Dec 2025", img: news2, title: "Campus Recruitment Drive" },
+                    { date: "Dec 2025", img: news3, title: "LinkedIn Live Webinar" },
+                  ].map((n) => (
+                    <Card key={n.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
-                        <div className="h-20 w-28 shrink-0 rounded-md bg-muted" />
+                        <img
+                          src={n.img}
+                          alt={n.title}
+                          className="h-20 w-28 shrink-0 rounded-md object-cover"
+                          loading="lazy"
+                        />
                         <div>
-                          <p className="text-xs font-semibold text-muted-foreground">Jan {10 + i}, 2026</p>
-                          <p className="mt-1 font-semibold">Placeholder news title {i + 1}</p>
+                          <p className="text-xs font-semibold text-muted-foreground">{n.date}</p>
+                          <p className="mt-1 font-semibold">{n.title}</p>
                           <p className="mt-1 text-sm text-muted-foreground">Short summary placeholder.</p>
                         </div>
                       </CardContent>
@@ -198,13 +244,22 @@ const Index = () => {
                   </a>
                 </div>
                 <div className="grid gap-4">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <Card key={`buzz-${i}`} className="bg-background">
+                  {[
+                    { date: "2025", img: buzz1, title: "Pot Painting Event" },
+                    { date: "2025", img: buzz2, title: "Kumarapalayam Marathon" },
+                    { date: "2025", img: buzz3, title: "Pongal Celebrations" },
+                  ].map((b) => (
+                    <Card key={b.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
-                        <div className="h-20 w-28 shrink-0 rounded-md bg-muted" />
+                        <img
+                          src={b.img}
+                          alt={b.title}
+                          className="h-20 w-28 shrink-0 rounded-md object-cover"
+                          loading="lazy"
+                        />
                         <div>
-                          <p className="text-xs font-semibold text-muted-foreground">Jan {14 + i}, 2026</p>
-                          <p className="mt-1 font-semibold">Placeholder buzz title {i + 1}</p>
+                          <p className="text-xs font-semibold text-muted-foreground">{b.date}</p>
+                          <p className="mt-1 font-semibold">{b.title}</p>
                           <p className="mt-1 text-sm text-muted-foreground">Short summary placeholder.</p>
                         </div>
                       </CardContent>
