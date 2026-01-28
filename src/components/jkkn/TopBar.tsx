@@ -1,18 +1,15 @@
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
-import { useContentMode } from "@/content/contentMode";
 
 export function TopBar() {
-  const { content } = useContentMode();
-
   return (
     <div className="w-full bg-primary text-primary-foreground">
       <div className="container flex h-10 items-center justify-between text-sm">
         <div className="flex items-center gap-4">
-          <a className="hover:underline" href="#">
-            {content.CONTACT_PHONE}
+          <a className="hover:underline" href="tel:+919345855001">
+            +91 93458 55001
           </a>
-          <a className="hover:underline" href="#">
-            {content.CONTACT_EMAIL}
+          <a className="hover:underline" href="mailto:info@jkkn.ac.in">
+            info@jkkn.ac.in
           </a>
         </div>
 

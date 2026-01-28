@@ -1,16 +1,14 @@
-import { useContentMode } from "@/content/contentMode";
+import jkknLogo from "@/assets/jkkn-logo.svg";
 
 export function SiteFooter() {
-  const { content } = useContentMode();
-
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <img src={content.LOGO_IMAGE_SRC} alt={content.LOGO_IMAGE_ALT} className="mb-4 h-10 w-auto" />
+            <img src={jkknLogo} alt="JKKN Institutions" className="mb-4 h-10 w-auto" />
             <p className="text-sm opacity-90">
-              {content.SECTION_TEXT_CONTENT}
+              Placeholder description matching the footer’s informational block.
             </p>
           </div>
 
@@ -43,15 +41,15 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-4 text-sm font-bold tracking-wide">Contact</h3>
             <ul className="space-y-2 text-sm opacity-90">
-              <li>{content.ADDRESS}</li>
+              <li>JKKN Campus, Placeholder Address</li>
               <li>
-                <a className="hover:underline" href="#">
-                  {content.CONTACT_PHONE}
+                <a className="hover:underline" href="tel:+919345855001">
+                  +91 93458 55001
                 </a>
               </li>
               <li>
-                <a className="hover:underline" href="#">
-                  {content.CONTACT_EMAIL}
+                <a className="hover:underline" href="mailto:info@jkkn.ac.in">
+                  info@jkkn.ac.in
                 </a>
               </li>
             </ul>

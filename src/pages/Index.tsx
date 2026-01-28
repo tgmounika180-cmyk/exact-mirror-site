@@ -6,15 +6,28 @@ import { MainNav } from "@/components/jkkn/MainNav";
 import { PartnersMarquee } from "@/components/jkkn/PartnersMarquee";
 import { SiteFooter } from "@/components/jkkn/SiteFooter";
 
-import { useContentMode } from "@/content/contentMode";
+import campusImg from "@/assets/jkkn-campus.jpg";
+import founderImg from "@/assets/jkkn-founder.jpg";
 
+import instDental from "@/assets/jkkn/institution-dental.jpg";
+import instEngg from "@/assets/jkkn/institution-engg.jpg";
+import instPharmacy from "@/assets/jkkn/institution-pharmacy.jpg";
+import instAhs from "@/assets/jkkn/institution-ahs.jpg";
+import instCas from "@/assets/jkkn/institution-cas.jpg";
+import instEducation from "@/assets/jkkn/institution-education.jpg";
+import instSchool from "@/assets/jkkn/institution-school.jpg";
+
+import news1 from "@/assets/jkkn/news-1.png";
+import news2 from "@/assets/jkkn/news-2.jpg";
+import news3 from "@/assets/jkkn/news-3.jpeg";
+import buzz1 from "@/assets/jkkn/buzz-1.jpg";
+import buzz2 from "@/assets/jkkn/buzz-2.jpg";
+import buzz3 from "@/assets/jkkn/buzz-3.jpg";
 
 const Index = () => {
-  const { content } = useContentMode();
-
   useEffect(() => {
-    document.title = content.WEBSITE_NAME;
-  }, [content.WEBSITE_NAME]);
+    document.title = "Best College in Erode Region – JKKN Institutions";
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,8 +39,8 @@ const Index = () => {
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src={content.HERO_IMAGE_SRC}
-              alt={content.WEBSITE_NAME}
+              src={campusImg}
+              alt="JKKN Campus"
               className="h-full w-full object-cover"
               loading="eager"
             />
@@ -38,21 +51,21 @@ const Index = () => {
             <div className="container pb-20 pt-16">
               <div className="max-w-3xl">
                 <div className="mb-4 inline-flex items-center rounded-full bg-secondary px-4 py-1 text-xs font-bold tracking-wide text-secondary-foreground">
-                  {content.TAGLINE}
+                  AI Empowered Campus
                 </div>
                 <h1 className="text-4xl font-bold leading-tight tracking-tight text-primary-foreground md:text-5xl">
-                  {content.HERO_TITLE}
+                  India’s First AI-Integrated Campus
                 </h1>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/90 md:text-lg">
-                  {content.HERO_SUBTITLE}
+                  Neutral placeholder subtitle matching the hero’s single-paragraph structure.
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Button variant="secondary" size="lg">
-                    {content.CTA_TEXT_1}
+                    ONLINE ADMISSIONS 2026-27
                   </Button>
                   <Button variant="outline" size="lg" className="bg-background/70">
-                    {content.CTA_TEXT_2}
+                    Explore Programs
                   </Button>
                 </div>
               </div>
@@ -65,19 +78,14 @@ const Index = () => {
           <div className="container py-16">
             <div className="grid items-center gap-10 lg:grid-cols-2">
               <div className="overflow-hidden rounded-xl border">
-                <img
-                  src={content.EVENT_IMAGE_SRC_2}
-                  alt={content.WEBSITE_NAME}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
+                <img src={founderImg} alt="Founder portrait" className="h-full w-full object-cover" loading="lazy" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-muted-foreground">JKKN100 - Celebrating a Century of Excellence</p>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">Kodai Vallal Shri. J.K.K. Nataraja Chettiar</h2>
                 <p className="mt-1 text-sm text-muted-foreground">1925–1995</p>
                 <p className="mt-5 leading-relaxed text-foreground/90">
-                  {content.SECTION_TEXT_CONTENT}
+                  Neutral placeholder copy preserving the two-paragraph legacy narrative structure.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Button>Watch Tribute Video</Button>
@@ -96,7 +104,7 @@ const Index = () => {
                 <p className="text-sm font-semibold text-muted-foreground">Est. 1952</p>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">JKKN Institutions</h2>
                 <p className="mt-4 max-w-2xl leading-relaxed text-foreground/90">
-                  {content.SECTION_TEXT_CONTENT}
+                  Neutral placeholder paragraph matching the about/journey content block.
                 </p>
               </div>
 
@@ -112,7 +120,7 @@ const Index = () => {
                   <Card key={label} className="bg-background">
                     <CardContent className="p-5">
                       <p className="text-sm font-semibold">{label}</p>
-                        <p className="mt-1 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
+                      <p className="mt-1 text-sm text-muted-foreground">Placeholder supporting line.</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -153,43 +161,38 @@ const Index = () => {
               {[
                 {
                   name: "JKKN Dental College and Hospital",
-                  imageSrc: content.EVENT_IMAGE_SRC_1,
+                  image: instDental,
                 },
                 {
                   name: "JKKN College of Engineering and Technology",
-                  imageSrc: content.EVENT_IMAGE_SRC_3,
+                  image: instEngg,
                 },
                 {
                   name: "JKKN College of Pharmacy",
-                  imageSrc: content.EVENT_IMAGE_SRC_1,
+                  image: instPharmacy,
                 },
                 {
                   name: "JKKN College of Allied Health Sciences",
-                  imageSrc: content.EVENT_IMAGE_SRC_3,
+                  image: instAhs,
                 },
                 {
                   name: "JKKN College of Arts and Science",
-                  imageSrc: content.EVENT_IMAGE_SRC_1,
+                  image: instCas,
                 },
                 {
                   name: "JKKN College of Education",
-                  imageSrc: content.EVENT_IMAGE_SRC_3,
+                  image: instEducation,
                 },
                 {
                   name: "JKKN Matriculation Higher Secondary School",
-                  imageSrc: content.EVENT_IMAGE_SRC_1,
+                  image: instSchool,
                 },
               ].slice(0, 6).map((item) => (
                 <Card key={item.name} className="overflow-hidden">
-                  <img
-                    src={item.imageSrc}
-                    alt={content.WEBSITE_NAME}
-                    className="aspect-[16/10] w-full object-cover"
-                    loading="lazy"
-                  />
+                  <img src={item.image} alt={item.name} className="aspect-[16/10] w-full object-cover" loading="lazy" />
                   <CardContent className="p-5">
                     <p className="text-base font-bold tracking-tight">{item.name}</p>
-                    <p className="mt-2 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
+                    <p className="mt-2 text-sm text-muted-foreground">Neutral placeholder description.</p>
                   </CardContent>
                 </Card>
               ))}
@@ -210,22 +213,22 @@ const Index = () => {
                 </div>
                 <div className="grid gap-4">
                   {[
-                    { date: "Dec 15, 2025", imgSrc: content.EVENT_IMAGE_SRC_1, title: content.EVENT_TITLE_1 },
-                    { date: "Dec 2025", imgSrc: content.EVENT_IMAGE_SRC_2, title: content.EVENT_TITLE_2 },
-                    { date: "Dec 2025", imgSrc: content.EVENT_IMAGE_SRC_3, title: content.EVENT_TITLE_3 },
+                    { date: "Dec 15, 2025", img: news1, title: "Industry Connect – AI & Process Consulting" },
+                    { date: "Dec 2025", img: news2, title: "Campus Recruitment Drive" },
+                    { date: "Dec 2025", img: news3, title: "LinkedIn Live Webinar" },
                   ].map((n) => (
                     <Card key={n.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
                         <img
-                          src={n.imgSrc}
-                          alt={content.WEBSITE_NAME}
+                          src={n.img}
+                          alt={n.title}
                           className="h-20 w-28 shrink-0 rounded-md object-cover"
                           loading="lazy"
                         />
                         <div>
                           <p className="text-xs font-semibold text-muted-foreground">{n.date}</p>
                           <p className="mt-1 font-semibold">{n.title}</p>
-                          <p className="mt-1 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
+                          <p className="mt-1 text-sm text-muted-foreground">Short summary placeholder.</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -242,22 +245,22 @@ const Index = () => {
                 </div>
                 <div className="grid gap-4">
                   {[
-                    { date: "2025", imgSrc: content.EVENT_IMAGE_SRC_1, title: content.EVENT_TITLE_1 },
-                    { date: "2025", imgSrc: content.EVENT_IMAGE_SRC_2, title: content.EVENT_TITLE_2 },
-                    { date: "2025", imgSrc: content.EVENT_IMAGE_SRC_3, title: content.EVENT_TITLE_3 },
+                    { date: "2025", img: buzz1, title: "Pot Painting Event" },
+                    { date: "2025", img: buzz2, title: "Kumarapalayam Marathon" },
+                    { date: "2025", img: buzz3, title: "Pongal Celebrations" },
                   ].map((b) => (
                     <Card key={b.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
                         <img
-                          src={b.imgSrc}
-                          alt={content.WEBSITE_NAME}
+                          src={b.img}
+                          alt={b.title}
                           className="h-20 w-28 shrink-0 rounded-md object-cover"
                           loading="lazy"
                         />
                         <div>
                           <p className="text-xs font-semibold text-muted-foreground">{b.date}</p>
                           <p className="mt-1 font-semibold">{b.title}</p>
-                          <p className="mt-1 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
+                          <p className="mt-1 text-sm text-muted-foreground">Short summary placeholder.</p>
                         </div>
                       </CardContent>
                     </Card>
