@@ -6,14 +6,15 @@ import { MainNav } from "@/components/jkkn/MainNav";
 import { PartnersMarquee } from "@/components/jkkn/PartnersMarquee";
 import { SiteFooter } from "@/components/jkkn/SiteFooter";
 
-import placeholderImg from "/placeholder.svg";
-import { PLACEHOLDERS } from "@/content/placeholders";
+import { useContentMode } from "@/content/contentMode";
 
 
 const Index = () => {
+  const { content } = useContentMode();
+
   useEffect(() => {
-    document.title = PLACEHOLDERS.WEBSITE_NAME;
-  }, []);
+    document.title = content.WEBSITE_NAME;
+  }, [content.WEBSITE_NAME]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -25,8 +26,8 @@ const Index = () => {
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src={placeholderImg}
-              alt={PLACEHOLDERS.EVENT_IMAGE_ALT_1}
+              src={content.HERO_IMAGE_SRC}
+              alt={content.WEBSITE_NAME}
               className="h-full w-full object-cover"
               loading="eager"
             />
@@ -37,21 +38,21 @@ const Index = () => {
             <div className="container pb-20 pt-16">
               <div className="max-w-3xl">
                 <div className="mb-4 inline-flex items-center rounded-full bg-secondary px-4 py-1 text-xs font-bold tracking-wide text-secondary-foreground">
-                  {PLACEHOLDERS.TAGLINE}
+                  {content.TAGLINE}
                 </div>
                 <h1 className="text-4xl font-bold leading-tight tracking-tight text-primary-foreground md:text-5xl">
-                  {PLACEHOLDERS.HERO_TITLE}
+                  {content.HERO_TITLE}
                 </h1>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/90 md:text-lg">
-                  {PLACEHOLDERS.HERO_SUBTITLE}
+                  {content.HERO_SUBTITLE}
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Button variant="secondary" size="lg">
-                    {PLACEHOLDERS.CTA_TEXT_1}
+                    {content.CTA_TEXT_1}
                   </Button>
                   <Button variant="outline" size="lg" className="bg-background/70">
-                    {PLACEHOLDERS.CTA_TEXT_2}
+                    {content.CTA_TEXT_2}
                   </Button>
                 </div>
               </div>
@@ -65,8 +66,8 @@ const Index = () => {
             <div className="grid items-center gap-10 lg:grid-cols-2">
               <div className="overflow-hidden rounded-xl border">
                 <img
-                  src={placeholderImg}
-                  alt={PLACEHOLDERS.EVENT_IMAGE_ALT_2}
+                  src={content.EVENT_IMAGE_SRC_2}
+                  alt={content.WEBSITE_NAME}
                   className="h-full w-full object-cover"
                   loading="lazy"
                 />
@@ -76,7 +77,7 @@ const Index = () => {
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">Kodai Vallal Shri. J.K.K. Nataraja Chettiar</h2>
                 <p className="mt-1 text-sm text-muted-foreground">1925–1995</p>
                 <p className="mt-5 leading-relaxed text-foreground/90">
-                  {PLACEHOLDERS.SECTION_TEXT_CONTENT}
+                  {content.SECTION_TEXT_CONTENT}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Button>Watch Tribute Video</Button>
@@ -95,7 +96,7 @@ const Index = () => {
                 <p className="text-sm font-semibold text-muted-foreground">Est. 1952</p>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">JKKN Institutions</h2>
                 <p className="mt-4 max-w-2xl leading-relaxed text-foreground/90">
-                  {PLACEHOLDERS.SECTION_TEXT_CONTENT}
+                  {content.SECTION_TEXT_CONTENT}
                 </p>
               </div>
 
@@ -111,7 +112,7 @@ const Index = () => {
                   <Card key={label} className="bg-background">
                     <CardContent className="p-5">
                       <p className="text-sm font-semibold">{label}</p>
-                        <p className="mt-1 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
+                        <p className="mt-1 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -152,43 +153,43 @@ const Index = () => {
               {[
                 {
                   name: "JKKN Dental College and Hospital",
-                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
+                  imageSrc: content.EVENT_IMAGE_SRC_1,
                 },
                 {
                   name: "JKKN College of Engineering and Technology",
-                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
+                  imageSrc: content.EVENT_IMAGE_SRC_3,
                 },
                 {
                   name: "JKKN College of Pharmacy",
-                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
+                  imageSrc: content.EVENT_IMAGE_SRC_1,
                 },
                 {
                   name: "JKKN College of Allied Health Sciences",
-                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
+                  imageSrc: content.EVENT_IMAGE_SRC_3,
                 },
                 {
                   name: "JKKN College of Arts and Science",
-                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
+                  imageSrc: content.EVENT_IMAGE_SRC_1,
                 },
                 {
                   name: "JKKN College of Education",
-                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
+                  imageSrc: content.EVENT_IMAGE_SRC_3,
                 },
                 {
                   name: "JKKN Matriculation Higher Secondary School",
-                  imageAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1,
+                  imageSrc: content.EVENT_IMAGE_SRC_1,
                 },
               ].slice(0, 6).map((item) => (
                 <Card key={item.name} className="overflow-hidden">
                   <img
-                    src={placeholderImg}
-                    alt={item.imageAlt}
+                    src={item.imageSrc}
+                    alt={content.WEBSITE_NAME}
                     className="aspect-[16/10] w-full object-cover"
                     loading="lazy"
                   />
                   <CardContent className="p-5">
                     <p className="text-base font-bold tracking-tight">{item.name}</p>
-                    <p className="mt-2 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
+                    <p className="mt-2 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -209,22 +210,22 @@ const Index = () => {
                 </div>
                 <div className="grid gap-4">
                   {[
-                    { date: "Dec 15, 2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1, title: PLACEHOLDERS.EVENT_TITLE_1 },
-                    { date: "Dec 2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_2, title: PLACEHOLDERS.EVENT_TITLE_2 },
-                    { date: "Dec 2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_3, title: PLACEHOLDERS.EVENT_TITLE_3 },
+                    { date: "Dec 15, 2025", imgSrc: content.EVENT_IMAGE_SRC_1, title: content.EVENT_TITLE_1 },
+                    { date: "Dec 2025", imgSrc: content.EVENT_IMAGE_SRC_2, title: content.EVENT_TITLE_2 },
+                    { date: "Dec 2025", imgSrc: content.EVENT_IMAGE_SRC_3, title: content.EVENT_TITLE_3 },
                   ].map((n) => (
                     <Card key={n.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
                         <img
-                          src={placeholderImg}
-                          alt={n.imgAlt}
+                          src={n.imgSrc}
+                          alt={content.WEBSITE_NAME}
                           className="h-20 w-28 shrink-0 rounded-md object-cover"
                           loading="lazy"
                         />
                         <div>
                           <p className="text-xs font-semibold text-muted-foreground">{n.date}</p>
                           <p className="mt-1 font-semibold">{n.title}</p>
-                          <p className="mt-1 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
+                          <p className="mt-1 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -241,22 +242,22 @@ const Index = () => {
                 </div>
                 <div className="grid gap-4">
                   {[
-                    { date: "2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_1, title: PLACEHOLDERS.EVENT_TITLE_1 },
-                    { date: "2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_2, title: PLACEHOLDERS.EVENT_TITLE_2 },
-                    { date: "2025", imgAlt: PLACEHOLDERS.EVENT_IMAGE_ALT_3, title: PLACEHOLDERS.EVENT_TITLE_3 },
+                    { date: "2025", imgSrc: content.EVENT_IMAGE_SRC_1, title: content.EVENT_TITLE_1 },
+                    { date: "2025", imgSrc: content.EVENT_IMAGE_SRC_2, title: content.EVENT_TITLE_2 },
+                    { date: "2025", imgSrc: content.EVENT_IMAGE_SRC_3, title: content.EVENT_TITLE_3 },
                   ].map((b) => (
                     <Card key={b.title} className="bg-background">
                       <CardContent className="flex gap-4 p-4">
                         <img
-                          src={placeholderImg}
-                          alt={b.imgAlt}
+                          src={b.imgSrc}
+                          alt={content.WEBSITE_NAME}
                           className="h-20 w-28 shrink-0 rounded-md object-cover"
                           loading="lazy"
                         />
                         <div>
                           <p className="text-xs font-semibold text-muted-foreground">{b.date}</p>
                           <p className="mt-1 font-semibold">{b.title}</p>
-                          <p className="mt-1 text-sm text-muted-foreground">{PLACEHOLDERS.SECTION_TEXT_CONTENT}</p>
+                          <p className="mt-1 text-sm text-muted-foreground">{content.SECTION_TEXT_CONTENT}</p>
                         </div>
                       </CardContent>
                     </Card>

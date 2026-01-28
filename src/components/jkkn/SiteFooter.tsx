@@ -1,15 +1,16 @@
-import placeholderImg from "/placeholder.svg";
-import { PLACEHOLDERS } from "@/content/placeholders";
+import { useContentMode } from "@/content/contentMode";
 
 export function SiteFooter() {
+  const { content } = useContentMode();
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <img src={placeholderImg} alt={PLACEHOLDERS.LOGO_IMAGE_ALT} className="mb-4 h-10 w-auto" />
+            <img src={content.LOGO_IMAGE_SRC} alt={content.LOGO_IMAGE_ALT} className="mb-4 h-10 w-auto" />
             <p className="text-sm opacity-90">
-              {PLACEHOLDERS.SECTION_TEXT_CONTENT}
+              {content.SECTION_TEXT_CONTENT}
             </p>
           </div>
 
@@ -42,15 +43,15 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-4 text-sm font-bold tracking-wide">Contact</h3>
             <ul className="space-y-2 text-sm opacity-90">
-              <li>{PLACEHOLDERS.ADDRESS}</li>
+              <li>{content.ADDRESS}</li>
               <li>
                 <a className="hover:underline" href="#">
-                  {PLACEHOLDERS.CONTACT_PHONE}
+                  {content.CONTACT_PHONE}
                 </a>
               </li>
               <li>
                 <a className="hover:underline" href="#">
-                  {PLACEHOLDERS.CONTACT_EMAIL}
+                  {content.CONTACT_EMAIL}
                 </a>
               </li>
             </ul>
