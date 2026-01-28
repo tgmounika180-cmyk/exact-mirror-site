@@ -7,9 +7,16 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      // Desktop-first layout, tuned for 1024px viewport fidelity.
+      // Keep structure unchanged; only adjusts global container gutters.
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.25rem",
+        md: "1.5rem",
+        lg: "2rem",
+      },
       screens: {
-        "2xl": "1400px",
+        "2xl": "1320px",
       },
     },
     extend: {
