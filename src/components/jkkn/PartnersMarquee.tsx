@@ -1,23 +1,27 @@
 import type { ReactNode } from "react";
 
-import recruiterTcs from "@/assets/jkkn/recruiter-tcs.png";
-import recruiterInfosys from "@/assets/jkkn/recruiter-infosys.png";
-import recruiterWipro from "@/assets/jkkn/recruiter-wipro.jpg";
-import recruiterCognizant from "@/assets/jkkn/recruiter-cognizant.jpg";
-import recruiterHcl from "@/assets/jkkn/recruiter-hcl.png";
+import { JKKN_ASSETS } from "@/lib/jkkn/assets";
+
+export type PartnerLogo = { id: string; name: string; imageKey: string };
 
 function MarqueeTrack({ children }: { children: ReactNode }) {
   return <div className="flex min-w-full items-center gap-10 px-6">{children}</div>;
 }
 
-export function PartnersMarquee() {
-  const logos = [
-    { id: "tcs", src: recruiterTcs, alt: "TCS" },
-    { id: "infosys", src: recruiterInfosys, alt: "Infosys" },
-    { id: "wipro", src: recruiterWipro, alt: "Wipro" },
-    { id: "cognizant", src: recruiterCognizant, alt: "Cognizant" },
-    { id: "hcl", src: recruiterHcl, alt: "HCL" },
-  ];
+export function PartnersMarquee({ logos }: { logos?: PartnerLogo[] }) {
+  const fallback = [
+    { id: "tcs", name: "TCS", imageKey: "tcs" },
+    { id: "infosys", name: "Infosys", imageKey: "infosys" },
+    { id: "wipro", name: "Wipro", imageKey: "wipro" },
+    { id: "cognizant", name: "Cognizant", imageKey: "cognizant" },
+    { id: "hcl", name: "HCL", imageKey: "hcl" },
+  ] satisfies PartnerLogo[];
+
+  const resolved = (logos?.length ? logos : fallback).map((l) => ({
+    id: l.id,
+    alt: l.name,
+    src: (JKKN_ASSETS as Record<string, string>)[l.imageKey] ?? JKKN_ASSETS.tcs,
+  }));
 
   return (
     <section className="bg-muted">
@@ -30,14 +34,14 @@ export function PartnersMarquee() {
         <div className="relative overflow-hidden rounded-lg border bg-background">
           <div className="flex w-[200%] animate-marquee">
             <MarqueeTrack>
-              {logos.map((l) => (
+              {resolved.map((l) => (
                 <div key={l.id} className="flex h-16 w-40 items-center justify-center rounded-md border bg-card">
                   <img src={l.src} alt={l.alt} className="h-10 w-auto object-contain" loading="lazy" />
                 </div>
               ))}
             </MarqueeTrack>
             <MarqueeTrack>
-              {logos.map((l) => (
+              {resolved.map((l) => (
                 <div key={`dup-${l.id}`} className="flex h-16 w-40 items-center justify-center rounded-md border bg-card">
                   <img src={l.src} alt={l.alt} className="h-10 w-auto object-contain" loading="lazy" />
                 </div>
